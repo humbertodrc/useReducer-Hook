@@ -1,41 +1,83 @@
-import { useState } from 'react'
+import { useReducer } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
+// Estado inicial
+const initialState = {
+  count: 0,
+}
+
+// types de los actions
+const TYPES = {
+  INCREMENTAR: 'INCREMENTAR',
+  INCREMENTAR_5: 'INCREMENTAR_5',
+  DECREMENTAR: 'DECREMENTAR',
+  DECREMENTAR_5: 'DECREMENTAR_5',
+  RESET:'RESET',
+}
+
+
+// reducer actualiza el estado segun el action que se le pase y el payload por medio del dispatch
+function reducer(state, action) {
+  switch (action.type) {
+    case TYPES.INCREMENTAR:
+      return { count: state.count + 1 }
+    
+    case TYPES.INCREMENTAR_5:
+      return { count: state.count + action.payload }
+    
+    case TYPES.DECREMENTAR:
+      return { count: state.count - 1 }
+    
+    case TYPES.DECREMENTAR_5:
+      return { count: state.count - action.payload }
+    
+    case TYPES.RESET:
+      return initialState
+    
+    default:
+      return state
+  }
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+
+  const sumar = () => dispatch({ type: TYPES.INCREMENTAR })
+
+  const sumar5 = () => dispatch({ type: TYPES.INCREMENTAR_5, payload: 5 })
+
+  const restar = () => dispatch({ type: TYPES.DECREMENTAR })
+
+  const restar5 = () => dispatch({ type: TYPES.DECREMENTAR_5, payload: 5 })
+
+  const reset = () => dispatch({ type: TYPES.RESET })
+
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
+        <p>useReducer</p>
+        <p>{state.count}</p>
         <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
+          <button type="button" onClick={sumar}>
+            +1
           </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
+          <button type="button" onClick={sumar5}>
+            +5
+          </button>
+          <button type="button" onClick={restar}>
+            -1
+          </button>
+          <button type="button" onClick={restar5}>
+            -5
+          </button>
+          <button type="button" onClick={reset}>
+            0
+          </button>
         </p>
       </header>
     </div>
