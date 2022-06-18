@@ -1,48 +1,13 @@
 import { useReducer } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import { TYPES } from './actions/contadorActions'
+import { contadorInitialState, contadorReducer } from './reducers/contadorReducer'
 
-// Estado inicial
-const initialState = {
-  count: 0,
-}
-
-// types de los actions
-const TYPES = {
-  INCREMENTAR: 'INCREMENTAR',
-  INCREMENTAR_5: 'INCREMENTAR_5',
-  DECREMENTAR: 'DECREMENTAR',
-  DECREMENTAR_5: 'DECREMENTAR_5',
-  RESET:'RESET',
-}
-
-
-// reducer actualiza el estado segun el action que se le pase y el payload por medio del dispatch
-function reducer(state, action) {
-  switch (action.type) {
-    case TYPES.INCREMENTAR:
-      return { count: state.count + 1 }
-    
-    case TYPES.INCREMENTAR_5:
-      return { count: state.count + action.payload }
-    
-    case TYPES.DECREMENTAR:
-      return { count: state.count - 1 }
-    
-    case TYPES.DECREMENTAR_5:
-      return { count: state.count - action.payload }
-    
-    case TYPES.RESET:
-      return initialState
-    
-    default:
-      return state
-  }
-}
 
 function App() {
 
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(contadorReducer, contadorInitialState)
 
 
   const sumar = () => dispatch({ type: TYPES.INCREMENTAR })
