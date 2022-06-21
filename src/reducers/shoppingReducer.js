@@ -8,15 +8,15 @@ export const initialState = {
 
 export const shoppingReducer = (state = initialState, action) => {
 	switch (action.type) {
-    case TYPES.ADD_TO_CART: {
-      // Buscamos el producto nuevo para agregarlo al carrito
-      let newItem = products.find((item) => item.id === action.payload);
-      // Validamos si ese producto nuevo ya esta en el carrito
+		case TYPES.ADD_TO_CART: {
+			// Buscamos el producto nuevo para agregarlo al carrito
+			let newItem = products.find((item) => item.id === action.payload);
+			// Validamos si ese producto nuevo ya esta en el carrito
 			let itemInCartValidate = state.cart.find(
 				(item) => item.id === newItem.id
 			);
 
-      // Si el producto nuevo ya esta en el carrito, hacemos el condicional del return
+			// Si el producto nuevo ya esta en el carrito, hacemos el condicional del return
 			return itemInCartValidate
 				? {
 						...state,
@@ -32,15 +32,32 @@ export const shoppingReducer = (state = initialState, action) => {
 				  };
 		}
 		case TYPES.REMOVE_ONE_FROM_CART: {
-			return;
+			// Buscamos el producto que queremos eliminar
+			let deleteItem = state.cart.find((item) => item.id === action.payload);
+			return deleteItem.quantity === 1
+				? {
+						...state,
+						cart: state.cart.filter((item) => item.id !== action.payload),
+				  }
+				: {
+						...state,
+						cart: state.cart.map((item) =>
+							item.id === action.payload
+								? {...item, quantity: item.quantity - 1}
+								: item
+						),
+				  };
 		}
 
 		case TYPES.REMOVE_ALL_FROM_CART: {
-			return;
+			return {
+				...state,
+				cart: state.cart.filter((item) => item.id !== action.payload),
+			};
 		}
 
 		case TYPES.CLEAR_CART: {
-			return;
+			return initialState;
 		}
 
 		default:

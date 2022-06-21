@@ -13,7 +13,7 @@ const CardItemCart = ({item, deleteFromCart}) => {
 			<p style={{fontWeight:"bold"}}>Total: ${quantity * price},<small>00</small></p>
 			<div className="box-buttons">
 				<button onClick={() => deleteFromCart(id)}>Eliminar Uno</button>
-				<button onClick={() => deleteFromCart(id)}>Eliminar Todo</button>
+				<button onClick={() => deleteFromCart(id, true)}>Eliminar Todo</button>
 			</div>
 		</div>
 	);
