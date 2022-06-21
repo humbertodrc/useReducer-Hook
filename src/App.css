@@ -41,3 +41,9 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.grid-responsive {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
