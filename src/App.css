@@ -56,3 +56,8 @@ button {
   border: solid 1px #ccc;
   padding: 10px;
 }
+
+.box-buttons{
+  display: flex;
+  justify-content: space-evenly;
+}
