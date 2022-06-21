@@ -1,5 +1,5 @@
 import { TYPES } from '../actions/shoppingActions';
-
+import {products} from "../data/products";
 
 
 
@@ -11,7 +11,11 @@ export const initialState = {
 export const shoppingReducer = (state = initialState, action) => {
   switch (action.type) {
     case TYPES.ADD_TO_CART: {
-      return
+      let newItem = products.find(item => item.id === action.payload);
+      return {
+        ...state,
+        cart: [...state.cart, state.cart.map(item => item.id === newItem.id ? newItem : item)]
+      }
     }
     
     case TYPES.REMOVE_ONE_FROM_CART: {

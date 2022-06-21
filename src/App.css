@@ -47,3 +47,12 @@ button {
   flex-wrap: wrap;
   gap: 10px;
 }
+
+.cart{
+  border: solid 1px #ccc;
+}
+
+.item{
+  border: solid 1px #ccc;
+  padding: 10px;
+}
