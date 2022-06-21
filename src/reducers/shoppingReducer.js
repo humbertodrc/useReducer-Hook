@@ -37,13 +37,13 @@ export const shoppingReducer = (state = initialState, action) => {
 			return deleteItem.quantity === 1
 				? {
 						...state,
-						cart: state.cart.filter((item) => item.id !== action.payload),
+						cart: state.cart.filter((item) => item.id !== action.payload), //elimina completo del carrito porque la cantidad es 1
 				  }
 				: {
 						...state,
 						cart: state.cart.map((item) =>
 							item.id === action.payload
-								? {...item, quantity: item.quantity - 1}
+								? {...item, quantity: item.quantity - 1} // si el item es el que queremos eliminar, se le resta 1 a la cantidad
 								: item
 						),
 				  };
